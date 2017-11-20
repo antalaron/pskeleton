@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+if (PHP_VERSION_ID < 50400) {
+    file_put_contents('php://stderr', sprintf(
+        "PSkeleton requires PHP 5.4 version or higher and your system has\n".
+        "PHP %s version installed.\n\n".
+        PHP_VERSION
+    ));
+    exit(1);
+}
+
+require file_exists(__DIR__.'/../vendor/autoload.php')
+    ? __DIR__.'/../vendor/autoload.php'
+    : __DIR__.'/../../../autoload.php';
