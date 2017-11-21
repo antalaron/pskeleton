@@ -82,7 +82,7 @@ class NewCommand extends Command
             ->setName('new')
             ->setDescription('Creates new project from skeleton.')
             ->addArgument('skeleton', InputArgument::REQUIRED, 'Skeleton which used as base for the project.')
-            ->addArgument('directory', InputArgument::REQUIRED, 'Directory where the new project will be created.')
+            ->addArgument('directory', InputArgument::OPTIONAL, 'Directory where the new project will be created.')
         ;
     }
 
@@ -103,7 +103,11 @@ class NewCommand extends Command
             $this->version = 'latest';
         }
 
-        $directory = rtrim(trim($input->getArgument('directory')), DIRECTORY_SEPARATOR);
+        if (null !== $input->getArgument('directory')) {
+            $directory = rtrim(trim($input->getArgument('directory')), DIRECTORY_SEPARATOR);
+        } else {
+            list(, $directory) = explode('/', $this->recipe);
+        }
 
         $this->projectDir = $this->filesystem->isAbsolutePath($directory) ? $directory : getcwd().DIRECTORY_SEPARATOR.$directory;
     }
@@ -145,7 +149,7 @@ class NewCommand extends Command
         $config = json_decode($response->getBody()->getContents(), true);
 
         if (!array_key_exists($this->recipe, $config['skeletons'])) {
-            throw new \Exception(sprintf('No recipe for %s', $this->recipe));
+            throw new \Exception(sprintf('No recipe for %s. Recipies: %s', $this->recipe, implode(', ', array_keys($config['skeletons']))));
         }
 
         if ('latest' === $this->version) {
