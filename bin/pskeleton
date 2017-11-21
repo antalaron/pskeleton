@@ -13,3 +13,9 @@ if (PHP_VERSION_ID < 50400) {
 require file_exists(__DIR__.'/../vendor/autoload.php')
     ? __DIR__.'/../vendor/autoload.php'
     : __DIR__.'/../../../autoload.php';
+
+$version = '1.0.0-dev';
+
+$app = new PSkeleton\Application('PSkeleton', $version);
+$app->add(new PSkeleton\NewCommand());
+$app->run();
