@@ -123,6 +123,7 @@ class NewCommand extends Command
         try {
             $this
                 ->validateSkeleton()
+                ->checkProjectDir()
                 ->download()
                 ->extract()
                 ->setVariables()
@@ -159,6 +160,15 @@ class NewCommand extends Command
 
         $this->variables = json_decode($response->getBody()->getContents(), true);
         $this->variables = $this->variables['variables'];
+
+        return $this;
+    }
+
+    private function checkProjectDir()
+    {
+        if (is_dir($this->projectDir) && !$this->isEmptyDirectory($this->projectDir)) {
+            throw new \Exception(sprintf('Directory %s is not empty', $this->projectDir));
+        }
 
         return $this;
     }
@@ -213,7 +223,12 @@ class NewCommand extends Command
         return $this;
     }
 
-    public function cleanUp()
+    protected function isEmptyDirectory($dir)
+    {
+        return 2 === count(scandir($dir.'/'));
+    }
+
+    private function cleanUp()
     {
         if (null !== $this->downloadPath) {
             $this->filesystem->remove($this->downloadPath);
