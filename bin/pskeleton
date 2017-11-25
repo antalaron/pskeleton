@@ -14,7 +14,7 @@ require file_exists(__DIR__.'/../vendor/autoload.php')
     ? __DIR__.'/../vendor/autoload.php'
     : __DIR__.'/../../../autoload.php';
 
-$version = '0.1.0-dev';
+$version = '0.1.1-dev';
 if ('' !== \Phar::running()) {
     $version .= '-@package_version@';
 }
