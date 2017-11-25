@@ -20,5 +20,6 @@ if ('' !== \Phar::running()) {
 }
 
 $app = new PSkeleton\Application('PSkeleton', $version);
+$app->add(new PSkeleton\ListCommand());
 $app->add(new PSkeleton\NewCommand());
 $app->run();

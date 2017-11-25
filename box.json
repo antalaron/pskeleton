@@ -20,7 +20,7 @@
         "Herrera\\Box\\Compactor\\Php"
     ],
     "compression": "GZ",
-    "git-version": "package_version",
+    "git-commit-short": "package_version",
     "main": "bin/pskeleton",
     "output": "pskeleton.phar",
     "stub": true,
