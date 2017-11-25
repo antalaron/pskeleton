@@ -27,7 +27,19 @@ before_install:
 
 install:
     - composer install
-    - ~/.phpenv/versions/5.6/bin/php box build
 
 script:
     - phpunit
+    - php box build
+    - sha1sum pskeleton.phar > pskeleton.sha1
+
+deploy:
+    provider: releases
+    api_key: $GITHUB_API_TOKEN
+    file:
+        - pskeleton.phar
+        - pskeleton.sha1
+    skip_cleanup: true
+    on:
+        tags: true
+        php: '5.6'
