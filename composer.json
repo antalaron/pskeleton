@@ -20,7 +20,7 @@
         }
     },
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.5.0",
         "symfony/console": "^3.3",
         "guzzlehttp/guzzle": "^6.3",
         "raulfraile/distill": "~0.9,!=0.9.3,!=0.9.4",

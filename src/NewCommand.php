@@ -80,7 +80,7 @@ class NewCommand extends Command
     {
         $this
             ->setName('new')
-            ->setDescription('Creates new project from skeleton.')
+            ->setDescription('Creates new project from skeleton')
             ->addArgument('skeleton', InputArgument::REQUIRED, 'Skeleton which used as base for the project.')
             ->addArgument('directory', InputArgument::OPTIONAL, 'Directory where the new project will be created.')
         ;
